@@ -10,7 +10,7 @@ module.exports = {
     const sig = Buffer.from(req.get('X-Hub-Signature-256') || '', 'utf8');
     // Create digest from request body
     const hmac = crypto.createHmac('sha256', process.env.DEPLOY_SECRET);
-    const digest = Buffer.from('sha256=' + hmac.update(JSON.stringify(req.body)).digest('hex'), 'utf8');
+    const digest = Buffer.from('sha256=' + hmac.update(JSON.stringify(req.body) || '').digest('hex'), 'utf8');
 
     // Compare generated digest to the request signature
     if (sig.length != digest.length || crypto.timingSafeEqual(sig, digest))
