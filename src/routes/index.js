@@ -1,5 +1,4 @@
 const fs = require('fs');
-const bodyParser = require('body-parser');
 
 module.exports = (app) => {
   // Saves a valid JSON body to req.rawBody
