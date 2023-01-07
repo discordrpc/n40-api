@@ -3,11 +3,16 @@ const bodyParser = require('body-parser');
 
 module.exports = (app) => {
   // Saves a valid JSON body to req.rawBody
-  app.use(bodyParser.json({
-    verify: (req, res, buf, enc) => {
-      if (buf && buf.length) req.rawBody = buf.toString(enc, 'utf8');
-    }
-  }));
+  app.use((req, res, next) => {
+    let data = '';
+    req.on('data', chunk => {
+      data += chunk;
+    });
+    req.on('end', () => {
+      req.rawBody = data;
+      next();
+    });
+  });
 
   // Load all routes
   fs.readdirSync(__dirname).forEach(file => {
