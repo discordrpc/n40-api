@@ -18,7 +18,7 @@ module.exports = {
     const digest = Buffer.from('sha256=' + hmac.update(req.rawBody).digest('hex'), 'utf8');
 
     // Compare generated digest to the request signature
-    if (sig.length != digest.length || crypto.timingSafeEqual(sig, digest))
+    if (sig.length != digest.length || !crypto.timingSafeEqual(sig, digest))
       return res.status(401).json({ error: 'invalid token' });
 
     // Execute git pull
