@@ -6,7 +6,7 @@ const crypto = require('crypto');
 module.exports = {
   method: 'POST',
   path: '/deploy',
-  middleware: [],
+  middleware: 'RawBodyLoader',
   handler: async (req, res) => {
     // Check if a raw body exists
     if (!req.rawBody) return res.status(400).json({ error: 'invalid body' });
