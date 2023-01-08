@@ -25,10 +25,7 @@ module.exports = {
     try {
       let { stdout, stderr } = await exec('git pull');
       if (stdout) console.log(stdout);
-      if (stderr) {
-        console.log(stderr);
-        return res.status(500).json({ error: 'git pull failed' });
-      }
+      if (stderr) console.error(stderr);
 
       // Restart the PM2 process
       pm2.connect(err => {
