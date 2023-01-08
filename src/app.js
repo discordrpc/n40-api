@@ -50,6 +50,9 @@ fs.readdirSync(__dirname + '/routes').forEach(file => {
 // Get server port
 const port = process.env.PORT || 3000;
 
+// Load global middleware
+app.use(middlewares.get('VerifyKey'));
+
 // Make express server listen on port
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
