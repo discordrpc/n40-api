@@ -19,7 +19,10 @@ export default class Deploy {
     const sig = Buffer.from(req.get('X-Hub-Signature-256') || '', 'utf8');
     // Create digest from request body
     const hmac = crypto.createHmac('sha256', process.env.DEPLOY_SECRET);
-    const digest = Buffer.from('sha256=' + hmac.update(req.rawBody).digest('hex'), 'utf8');
+    const digest = Buffer.from(
+      'sha256=' + hmac.update(req.rawBody).digest('hex'),
+      'utf8'
+    );
 
     // Compare generated digest to the request signature
     if (sig.length !== digest.length || !crypto.timingSafeEqual(sig, digest))
@@ -27,15 +30,17 @@ export default class Deploy {
 
     // Execute git pull
     try {
-      if (process.env.NODE_ENV === 'production') await execSync(`sh scripts/prod-pull.sh`);
-      else if (process.env.NODE_ENV === 'development') await execSync(`sh scripts/dev-pull.sh`);
+      if (process.env.NODE_ENV === 'production')
+        await execSync(`sh scripts/prod-pull.sh`);
+      else if (process.env.NODE_ENV === 'development')
+        await execSync(`sh scripts/dev-pull.sh`);
 
       // Restart the PM2 process
-      pm2.connect(err => {
-        if (err) throw (err);
+      pm2.connect((err) => {
+        if (err) throw err;
 
-        pm2.restart(process.env.pm_id, err1 => {
-          if (err1) throw (err1);
+        pm2.restart(process.env.pm_id, (err1) => {
+          if (err1) throw err1;
         });
       });
 

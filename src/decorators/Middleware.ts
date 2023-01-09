@@ -8,8 +8,13 @@ export default function Middleware(data: MiddlewareData | string): any {
       data = { path: data, methods: 'ALL', priority: 0 };
     }
 
-    RouteController.addMiddleware(data.path, data.methods, data.priority, descriptor.value);
-  }
+    RouteController.addMiddleware(
+      data.path,
+      data.methods,
+      data.priority,
+      descriptor.value
+    );
+  };
 }
 
 interface MiddlewareData {

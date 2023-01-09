@@ -1,5 +1,3 @@
 import RouteController from './RouteController';
 
-export {
-  RouteController
-}
+export { RouteController };

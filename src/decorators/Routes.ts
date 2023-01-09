@@ -1,3 +1,4 @@
+import { RequestHandler } from 'express';
 import { RouteController } from '../controllers';
 
 /**
@@ -15,7 +16,7 @@ export function Route(data: RouteData | string): any {
     }
 
     RouteController.addRoute(data.path, data.methods, descriptor.value);
-  }
+  };
 }
 
 /**
@@ -27,7 +28,7 @@ export function Route(data: RouteData | string): any {
 export function Get(path: string): any {
   return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
     RouteController.addRoute(path, 'GET', descriptor.value);
-  }
+  };
 }
 
 /**
@@ -39,11 +40,11 @@ export function Get(path: string): any {
 export function Post(path: string): any {
   return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
     RouteController.addRoute(path, 'POST', descriptor.value);
-  }
+  };
 }
 
 interface RouteData {
   path: string;
   methods: string[] | string;
-  handler: Function;
+  handler: RequestHandler;
 }

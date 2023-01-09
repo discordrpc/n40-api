@@ -1,7 +1,6 @@
 import { RequestHandler } from 'express';
 
 export default class Route {
-
   // Handler functions
   private _handlers: Map<string, RequestHandler>;
 
@@ -41,7 +40,11 @@ export default class Route {
    * @param handler the middleware method
    * @param priority the priority of the middleware, lower numbers are executed first
    */
-  public addMiddleware(method: string[] | string, priority: number, handler: RequestHandler): void {
+  public addMiddleware(
+    method: string[] | string,
+    priority: number,
+    handler: RequestHandler
+  ): void {
     // Convert string to array
     if (typeof method === 'string') method = method.toUpperCase().split(' ');
 

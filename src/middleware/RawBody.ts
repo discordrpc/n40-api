@@ -1,7 +1,6 @@
 import { Middleware } from '../decorators';
 
 export default class RawBody {
-
   @Middleware({ path: '/deploy', methods: 'POST' })
   private static RawBody(req: any, res: any, next: any) {
     let data = '';
@@ -9,7 +8,7 @@ export default class RawBody {
       data += chunk;
     });
     req.on('end', () => {
-      req.rawBody= data;
+      req.rawBody = data;
       next();
     });
   }

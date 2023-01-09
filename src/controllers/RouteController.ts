@@ -7,8 +7,7 @@ import { Route } from '../types';
  * {@link Express.Application} routes.
  */
 export default class RouteController {
-
-  /** 
+  /**
    * A map of route URLs to {@link Route}s.
    */
   private static routes: Map<string, Route> = new Map();
@@ -18,7 +17,7 @@ export default class RouteController {
    * If a route with the given path already exists, the
    * existing route is updated with the new HTTP
    * method(s) and corresponding handler.
-   * 
+   *
    * @param {string} path - The URL of the route
    * @param {string[] | string} methods - The HTTP methods the given handler
    *                                      should respond to
@@ -31,8 +30,7 @@ export default class RouteController {
   ) {
     if (this.routes.has(path))
       this.routes.get(path).addHandler(methods, handler);
-    else 
-      this.routes.set(path, new Route(methods, handler));
+    else this.routes.set(path, new Route(methods, handler));
   }
 
   /**
@@ -40,7 +38,7 @@ export default class RouteController {
    * If the route does not exist, it is created with no
    * request handlers and the middleware is then added
    * to this "empty" route.
-   * 
+   *
    * @param {string} path - The URL of the route
    * @param {string[] | string} methods - The HTTP methods the given middleware
    *                                      should respond to
@@ -54,9 +52,8 @@ export default class RouteController {
     priority: number,
     handler: RequestHandler
   ) {
-    if (!this.routes.has(path)) 
-      this.addRoute(path, methods);
-    
+    if (!this.routes.has(path)) this.addRoute(path, methods);
+
     this.routes.get(path).addMiddleware(methods, priority, handler);
   }
 
@@ -83,7 +80,9 @@ export default class RouteController {
         else if (method === 'POST') endpoint.post(...methodMiddleware, handler);
 
         // Log endpoint
-        console.log(`Built endpoint: ${path} (${method}, ${methodMiddleware.length})`);
+        console.log(
+          `Built endpoint: ${path} (${method}, ${methodMiddleware.length})`
+        );
       });
     });
 
