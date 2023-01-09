@@ -14,4 +14,4 @@ import './middleware';
 import './routes';
 
 // Build app
-RouteController.build();
+RouteController.deploy();
