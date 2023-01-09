@@ -27,8 +27,8 @@ export default class Deploy {
 
     // Execute git pull
     try {
-      if (process.env.NODE_ENV === 'production') await execSync(`sh scripts/production.sh`);
-      else if (process.env.NODE_ENV === 'development') await execSync(`sh scripts/development.sh`);
+      if (process.env.NODE_ENV === 'production') await execSync(`sh scripts/prod-pull.sh`);
+      else if (process.env.NODE_ENV === 'development') await execSync(`sh scripts/dev-pull.sh`);
 
       // Restart the PM2 process
       pm2.connect(err => {
