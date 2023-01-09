@@ -6,9 +6,7 @@
   "scripts": {
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "lint": "eslint . --ext .ts",
-    "prebuild": "npm run lint",
     "build": "tsc",
-    "prestart": "npm run build",
     "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
